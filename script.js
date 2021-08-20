@@ -1,14 +1,14 @@
-/*Создать переменную NumberOfFilms и поместить в 
-нее ответ от пользователя на вопрос "Сколько фильмов вы уже посмотрели?"*/
+let NumberOfFilms;
 
-const NumberOfFilms = +prompt("Сколько фильмов вы уже посмотрели?","");
+function start(){
+    NumberOfFilms = +prompt("Сколько фильмов вы уже посмотрели?","");
+        
+    while(NumberOfFilms == '' || NumberOfFilms == null || isNaN(NumberOfFilms)){
+        NumberOfFilms = +prompt("Сколько фильмов вы уже посмотрели?","");
+    }
+}
 
-/*Создать объект personalMovieDB и в него оместить такие свойства:
-- count - сюда передается ответ на первый вопрос
-- movies - в это свойство поместить пустой объект
-- actors - тоже поместить пустой объект
-- genres - поместить пустой массив
-- privat - поместить boolean значение false*/
+start();
 
 const personalMovieDB = {
     count: NumberOfFilms,
@@ -17,22 +17,90 @@ const personalMovieDB = {
     genres: [],
     privat: false
 };
+    /* решение с помощью цикла while*/
+/*let i = 0;
+    while(i<2){
+        const a = prompt("Один из последних просмотренных фильмов?", ""),
+       b = prompt("На сколько его оцените?", "");
 
-/*Задать пользователю по 2 раза вопросы "Один из последних просмотренных фильмов?" "На сколько его оцените?"
-Ответы поместить в отдельные переменные
-Записать ответы в объект movies в формате:
-    movies: {
-        'logan': '8.1'
-    } */
+        if(a != null && b!= null && a != '' && b != '' && a.length < 50){
+            personalMovieDB.movies[a] = b; 
+            console.log('done!');
+        } else{
+            console.log('error');
+            i--;
+        }
+       i++; 
+    }*/
 
-const a = prompt("Один из последних просмотренных фильмов?", ""),
-      b = prompt("На сколько его оцените?", ""),
-      c = prompt("Один из последних просмотренных фильмов?", ""),
-      d = prompt("На сколько его оцените?", "");
+/* решение с помощью цикла do - while */
+   /* let i = 0;
+     do{
+         const a = prompt("Один из последних просмотренных фильмов?", ""),
+     b = prompt("На сколько его оцените?", "");
 
-personalMovieDB.movies[a] = b;                  //если ответом на вопрос будет какая-то абра-кадабра, то вместо ответа 
-                                                //выведется название переменной. Поэтому обращаемся к переменной не 
-                                                //через точку, а через []
-personalMovieDB.movies[c] = d;
+      if(a != null && b!= null && a != '' && b != '' && a.length < 50){
+          personalMovieDB.movies[a] = b; 
+          console.log('done!');
+      } else{
+          console.log('error');
+          i--;
+      }
+      i++;
+    }
+    while(i<2);*/
 
-console.log(personalMovieDB);
+    function rememberMyFilms(){
+        for (let i = 0; i<2; i++) {
+            const a = prompt("Один из последних просмотренных фильмов?", ""),
+                  b = prompt("На сколько его оцените?", "");
+           
+                   if(a != null && b!= null && a != '' && b != '' && a.length < 50){
+                       personalMovieDB.movies[a] = b; 
+                       console.log('done!');
+                   } else{
+                       console.log('error');
+                       i--;
+                   }
+               
+                   
+               }
+    }
+
+rememberMyFilms();
+
+
+function detectPersonalLevel(){
+    if(personalMovieDB.count < 10){
+        console.log('Просмотрено довольно мало фильмов');
+    } else if (personalMovieDB.count >=10 && personalMovieDB.count <= 30) {
+        console.log('Вы стандартный зритель');
+    } else if (personalMovieDB.count > 30) {
+        console.log('Вы киноман');
+    } else {
+        console.log('Поизошла ошибка');
+    }
+}
+
+detectPersonalLevel();
+
+    function showMyDB(hidden){
+        if(!hidden){
+            console.log(personalMovieDB);
+        }
+    }
+showMyDB(personalMovieDB.privat);
+
+    function writeYourGenres(){
+        
+        for(let i = 1; i<=3; i++) {
+            const answer = prompt(`Ваш любимый жанр под номером ${i}`);
+        personalMovieDB.genres[i-1] = answer;
+        }
+
+        
+        console.log('done!');
+    } 
+writeYourGenres();
+
+    //console.log(personalMovieDB);
